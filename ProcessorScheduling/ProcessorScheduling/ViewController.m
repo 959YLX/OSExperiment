@@ -12,8 +12,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [[[ProcessScheduling alloc]initWithProcessAccount:10]printPCB];
-    // Do any additional setup after loading the view.
+    NSButton *button = [NSButton buttonWithTitle:@"RUN" target:self action:@selector(click)];
+    button.frame = CGRectMake(100, 100, 100, 50);
+    [self.view addSubview:button];
+    _processScheduling = [[ProcessScheduling alloc]initWithProcessAccount:5];
 }
 
 
@@ -23,5 +25,9 @@
     // Update the view, if already loaded.
 }
 
+- (void)click
+{
+    [_processScheduling start];
+}
 
 @end

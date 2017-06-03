@@ -18,7 +18,7 @@ typedef NS_ENUM (NSInteger,ProcessStatus){
 };
 
 struct PCB {
-    const char *name;
+    char *name;
     NSUInteger PID;
     ProcessStatus status;
     NSUInteger priority;
@@ -29,10 +29,10 @@ struct PCB {
 typedef struct PCB PCB;
 
 static inline PCB*
-PCBMake(const char *name, NSUInteger PID, ProcessStatus status, NSUInteger priority)
+PCBMake(NSUInteger PID, ProcessStatus status, NSUInteger priority)
 {
     PCB *pcb = (PCB*)malloc(sizeof(PCB));
-    pcb->name = name;
+    pcb->name = (char*)malloc(sizeof(char));
     pcb->PID = PID;
     pcb->status = status;
     pcb->priority = priority;

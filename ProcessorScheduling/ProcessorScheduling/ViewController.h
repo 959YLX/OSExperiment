@@ -11,6 +11,7 @@
 
 @interface ViewController : NSViewController
 
+@property(nonatomic, strong)ProcessScheduling *processScheduling;
 
 @end
 

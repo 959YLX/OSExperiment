@@ -10,15 +10,20 @@
 #import "PCB.h"
 
 #define CHARMAX 255
+#define CLOCK_TIME 1  //时钟时间(s)
+#define MAX_RUN_TIME 2  //进程运行最长时间,单位时钟周期
+
+typedef NS_ENUM(NSInteger, ScheduleType){
+    ScheduleTypePriority,   //优先权调度
+    ScheduleTypeRotate  //时间轮转调度
+};
 
 @interface ProcessScheduling : NSObject
 
-{
-    NSUInteger _account;
-    NSUInteger _pid;
-    PCB *pcb;
-}
-
+@property(nonatomic, strong)NSThread *thread;
+@property(nonatomic, assign)PCB *ready;
+@property(nonatomic, assign)PCB *block;
+@property(nonatomic, assign)PCB run;
 
 - (instancetype)initWithProcessAccount:(NSUInteger)account;
 
@@ -26,8 +31,14 @@
 
 - (void)addRandomProcess;
 
-- (void)addProcessWithName:(const char*)name PID:(NSUInteger)pid andPriority:(NSUInteger)priority;
+- (void)addProcessWithName:(char*)name andPriority:(NSUInteger)priority;
 
-- (void)startScheduling;
+- (void)blockProcessWithPID:(NSUInteger)PID;
+
+- (void)unblockProcessWithPID:(NSUInteger)PID;
+
+- (void)start;
+
++ (void)initPCBList:(PCB**)list;
 
 @end
